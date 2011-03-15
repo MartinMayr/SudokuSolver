@@ -28,7 +28,22 @@ let isComplete matrix =
     matrix
       |> Seq.exists listContainsZero
 
-let fillFirstEmptyPosition matrix =  [matrix] // TODO: Homework
+let rec fillFirstEmptyPositionWith matrix number =
+    let m = ref number
+    let replaceZero z =
+        match z with
+            | 0 ->
+                let g = !m
+                m := 0
+                g
+            | f -> id f
+    let changeList = List.map replaceZero
+    List.map changeList matrix
+
+let fillFirstEmptyPosition (matrix : int list list) =
+    let replaceFunction = fillFirstEmptyPositionWith matrix
+    [ 1 .. 9 ]
+        |> List.map replaceFunction
 
 let rec solve matrix =
     if isComplete matrix then [matrix] else
@@ -37,27 +52,24 @@ let rec solve matrix =
       |> List.filter isMatrixValid
       |> List.map solve
       |> List.concat
+    
 
+let testData =
+    [[ 1;  2;  3;  4]
+     [ 5;  6;  7;  8]
+     [ 9; 10; 11; 12]
+     [13; 14; 15; 16]]
 
+let printData l =
+    l
+        |> Seq.iter (fun n -> printfn "%A" n)
 
+let transform (l : int list list) =
 
+    l
 
+testData
+    |> transform
+    |> printData
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+System.Console.ReadKey() |> ignore
