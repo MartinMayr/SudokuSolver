@@ -1,0 +1,6 @@
+Kernstück der Lösung ist eine rekursive Methode die ihre Endbedingung erreicht
+sobald die Matrix vollständig ausgefüllt ist und keine Regelverstöße enthält.
+Die Methode übernimmt eine Matrix und ersetzt die erste freie Position durch alle möglichen Zaheln (1-9).
+Aus den dadurch entstanden neuen Matrizen werden die gefiltert, die gegen die Regeln verstoßen.
+Die übrigen Matrizen gehen in das nächste Rekursionslevel um die nächste freie Position auszufüllen.
+Die "Root"-Methode liefert eine Liste aller möglichen Lösungen zurück.
