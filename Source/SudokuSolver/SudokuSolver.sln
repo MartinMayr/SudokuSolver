@@ -5,8 +5,11 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SudokuSolver", "SudokuSolve
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{48312B1C-323F-41DF-9D51-5F5C06E6F34B}"
 	ProjectSection(SolutionItems) = preProject
+		AlgorithmusBeschreibung.txt = AlgorithmusBeschreibung.txt
 		..\..\README.markdown = ..\..\README.markdown
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolverCSharp", "..\SudokuSolverCSharp\SudokuSolverCSharp.csproj", "{0F2E3C11-483C-43E9-9645-3A4A34FCDDAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +21,10 @@ Global
 		{F37F8189-F2BC-415D-99DE-E9F692B5AA70}.Debug|x86.Build.0 = Debug|x86
 		{F37F8189-F2BC-415D-99DE-E9F692B5AA70}.Release|x86.ActiveCfg = Release|x86
 		{F37F8189-F2BC-415D-99DE-E9F692B5AA70}.Release|x86.Build.0 = Release|x86
+		{0F2E3C11-483C-43E9-9645-3A4A34FCDDAA}.Debug|x86.ActiveCfg = Debug|x86
+		{0F2E3C11-483C-43E9-9645-3A4A34FCDDAA}.Debug|x86.Build.0 = Debug|x86
+		{0F2E3C11-483C-43E9-9645-3A4A34FCDDAA}.Release|x86.ActiveCfg = Release|x86
+		{0F2E3C11-483C-43E9-9645-3A4A34FCDDAA}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
