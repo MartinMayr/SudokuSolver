@@ -4,9 +4,39 @@ let rec transpose = function
     | (_::_)::_ as M -> List.map List.head M :: transpose (List.map List.tail M)
     | _ -> []
 
+let removeElements l count =
+    let rec r = fun counter list ->
+        if counter = count then
+            list
+        else
+            list |> List.tail |> r (counter + 1)
+    r 0 l
+
+let rec buildTuples (l : int list list) =
+    if l.Length = 0 then
+        []
+    else
+        let f = List.zip3 (List.head l) (List.nth l 1) (List.nth l 2)
+        List.append f (buildTuples (removeElements l 3))
+
+let buildListFromTupel (a, b, c) =
+    [a ; b; c]
+
+let rec combineTuples (l : (int * int * int) list) =
+    if l.Length = 0 then
+        []
+    else
+        let f = List.head l
+        let s = List.nth l 1
+        let t = List.nth l 2
+        (buildListFromTupel f @ buildListFromTupel s @ buildListFromTupel t) :: combineTuples(removeElements l 3)
+
 let GetRows = id
 let GetCols = transpose
-let GetBoxes = id // Homework
+let GetBoxes l = 
+    l
+    |> buildTuples
+    |> combineTuples
 
 let isAllUnique numbers = 
     let set = new HashSet<_>()
@@ -22,11 +52,12 @@ let isMatrixValid matrix =
     rows @ cols @ boxes
       |> Seq.forall isAllUnique
 
-let listContainsZero = List.forall ((<>) 0)
+let listContainsZero = List.exists ((=) 0)
 
 let isComplete matrix =
     matrix
       |> Seq.exists listContainsZero
+      |> not
 
 let rec fillFirstEmptyPositionWith matrix number =
     let m = ref number
@@ -46,30 +77,48 @@ let fillFirstEmptyPosition (matrix : int list list) =
         |> List.map replaceFunction
 
 let rec solve matrix =
-    if isComplete matrix then [matrix] else
-    matrix
-      |> fillFirstEmptyPosition
-      |> List.filter isMatrixValid
-      |> List.map solve
-      |> List.concat
-    
+    if isComplete matrix then [matrix]
+    else
+        matrix
+          |> fillFirstEmptyPosition
+          |> List.filter isMatrixValid
+          |> List.map solve
+          |> List.concat
 
 let testData =
-    [[ 1;  2;  3;  4]
-     [ 5;  6;  7;  8]
-     [ 9; 10; 11; 12]
-     [13; 14; 15; 16]]
+    [[0; 0; 8;  3; 0; 0;  6; 0; 0]
+     [0; 0; 4;  0; 0; 0;  0; 1; 0]
+     [6; 7; 0;  0; 8; 0;  0; 0; 0]
+
+     [0; 1; 6;  4; 3; 0;  0; 0; 0]
+     [0; 0; 0;  7; 9; 0;  0; 2; 0]
+     [0; 9; 0;  0; 0; 0;  4; 0; 1]
+
+     [0; 0; 0;  9; 1; 0;  0; 0; 5]
+     [0; 0; 3;  0; 5; 0;  0; 0; 2]
+     [0; 5; 0;  0; 0; 0;  0; 7; 4]]
+
+let printCell i cell =
+    printf "%A " cell
+    if (i % 3) = 2 then printf " "
+
+let printRow i row =
+    Seq.iteri printCell row
+
+    printfn ""
+    if (i % 3) = 2 then printfn ""
+
+let printGrid grid =
+    grid
+    |> Seq.iteri printRow
+    printfn ""
 
 let printData l =
     l
-        |> Seq.iter (fun n -> printfn "%A" n)
-
-let transform (l : int list list) =
-
-    l
+    |> Seq.iter printGrid
 
 testData
-    |> transform
+    |> solve
     |> printData
 
 System.Console.ReadKey() |> ignore
